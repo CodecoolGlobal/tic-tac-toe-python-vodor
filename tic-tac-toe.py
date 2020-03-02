@@ -1,8 +1,8 @@
 def init_board():
     """Returns an empty 3-by-3 board (with zeros)."""
-    board = []
+    board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     return board
-pass
+
 
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
@@ -16,7 +16,7 @@ def get_ai_move(board, player):
     return row, col
 
 
-def mark(board, player, row, col):
+def mark(board, player, row, col): /Balázs/
     """Marks the element at row & col on the board for player."""
     pass
 
@@ -31,7 +31,7 @@ def is_full(board):
     return False
 
 
-def print_board(board):
+def print_board(board): /Balázs/
     """Prints a 3-by-3 board on the screen with borders."""
     pass
 
