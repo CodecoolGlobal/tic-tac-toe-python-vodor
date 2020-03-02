@@ -1,8 +1,7 @@
 def init_board():
-    """Returns an empty 3-by-3 board (with zeros)."""
-    board = []
+    board = [[0,0,0],[0,0,0],[0,0,0]]
     return board
-pass
+
 
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
