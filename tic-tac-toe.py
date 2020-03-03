@@ -40,6 +40,7 @@ def get_move(board, player):
         if board[row][int(col)-1] != 0:
             print("This place is already taken, choose another coordinate!")
         else:
+            col = int(col)
             return(row, col)
 
 
