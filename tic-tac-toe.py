@@ -20,8 +20,11 @@ def get_move(board, player):
         elif len(move) > 2 or move.isalpha():
             print_board(board)
             print("Enter a valid coordinate!")
+        move = list(move)
+        if move[1] not in "123":
+            print_board(board)
+            print("Enter a valid coordinate!")
         else:
-            move = list(move)
             row = move[0]
             col = int(move[1])
             if row not in "abcABC":
