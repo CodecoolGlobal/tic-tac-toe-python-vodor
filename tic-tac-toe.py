@@ -19,32 +19,38 @@ def taken(board, row, col):
 
 
 def get_move(board, player):
-    move = input("Player %d enter coordinates to mark: " % (player))
-    move = list(move)
-    row = move[0]
-    col = int(move[1])
-    if len(move) > 2:
-        print("Enter a valid coordinate!")
-        move = list(move)
-    elif row not in "abcABC":
-        print("Enter a valid coordinate!")
-    elif 0 > col or col > 4:
-        print("Enter a valid coordinate!")
-    elif row in "aA":
-        row = 0
-        taken(board, row, col)
-        col = (col - 1)
-        return(row, col)
-    elif row in "bB":
-        row = 1
-        taken(board, row, col)
-        col = (col - 1)
-        return(row, col)
-    elif row in "cC":
-        row = 2
-        taken(board, row, col)
-        col = (col - 1)
-        return(row, col)
+    while True:
+        move = input("Enter coordinates to mark or 'quit' to leave the game: ")
+        if move == "quit" or move == "QUIT" or move == "Quit":
+            clear()
+            exit()
+        elif len(move) > 2:
+            clear()
+            print_board(board)
+            print("Enter a valid coordinate!")
+        else:
+            move = list(move)
+            row = move[0]
+            col = int(move[1])
+            if row not in "abcABC":
+                print("Enter a valid coordinate!")
+            elif 0 > col or col > 4:
+                print("Enter a valid coordinate!")
+            elif row in "aA":
+                row = 0
+                taken(board,row,col)
+                col = (col - 1)
+                return(row, col)
+            elif row in "bB":
+                row = 1
+                taken(board,row,col)
+                col = (col - 1)
+                return(row, col)
+            elif row in "cC":
+                row = 2
+                taken(board,row,col)
+                col = (col - 1)
+                return(row, col)
 
 
 def get_ai_move(board, player):
