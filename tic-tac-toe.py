@@ -1,7 +1,7 @@
 import os
 import time
 # import pygame
-import pyfiglet
+# import pyfiglet
 # import random
 from colorama import Fore, Style  # Back
 
@@ -28,19 +28,21 @@ def get_move(board, player):
         if board[row][int(col)-1] != 0:
             print("This place is already taken, choose another coordinate!")
         else:
+            col = int(col)-1
             return(row, col)
     elif row in "bB":
         row = 1
         if board[row][int(col)-1] != 0:
             print("This place is already taken, choose another coordinate!")
         else:
+            col = int(col)-1
             return(row, col)
     elif row in "cC":
         row = 2
         if board[row][int(col)-1] != 0:
             print("This place is already taken, choose another coordinate!")
         else:
-            col = int(col)
+            col = int(col)-1
             return(row, col)
 
 
