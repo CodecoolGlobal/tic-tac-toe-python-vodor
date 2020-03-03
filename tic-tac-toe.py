@@ -71,7 +71,7 @@ def has_won(board, player):
         win_row = 0
         for k in i:
             if k == player:
-                print(board)
+                win_row += 1
             if win_row == 3:
                 wincondition = True
     column_counter = 0
@@ -82,7 +82,7 @@ def has_won(board, player):
                 win_column += 1
             if win_column == 3:
                 wincondition = True
-            column_counter += 1
+        column_counter += 1
     if board[1][1] == player:
         if board[0][0] == player and board[2][2] == player:
             wincondition = True
@@ -133,13 +133,15 @@ def print_result(winner, player):
     if player == 1:
         win_char = 'X'
     if winner == 2:
-        ascii_banner = pyfiglet.figlet_format("The Winner Is ", win_char, '!')
+        print('win')
+        '''ascii_banner = pyfiglet.figlet_format("The Winner Is ", win_char, '!')
         print(Fore.YELLOW + ascii_banner)
-        print(Style.RESET_ALL)
+        print(Style.RESET_ALL)'''
     elif winner == 1:
-        ascii_banner = pyfiglet.figlet_format("TIE")
+        print("tie")
+        """ascii_banner = pyfiglet.figlet_format("TIE")
         print(Fore.RED + ascii_banner)
-        print(Style.RESET_ALL)
+        print(Style.RESET_ALL)"""
     return
 
 
@@ -172,7 +174,6 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         mark(board, player, row, col)
         full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
         won = has_won(board, player)
-        print(full_board, won)
         if full_board:
             winner = 1
             break
