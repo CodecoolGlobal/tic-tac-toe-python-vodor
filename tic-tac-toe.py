@@ -1,45 +1,60 @@
-# import os
-# import time
+import os
+import time
 # import pygame
+import pyfiglet
 # import random
+from colorama import Fore, Style  # Back
 
 
 def init_board():
-    """Returns an empty 3-by-3 board (with zeros)."""
     board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]  # row the outer, column the inner list(s)
     return board
 
 
 def get_move(board, player):
-    """Returns the coordinates of a valid move for player on board."""
-    something
-    something
     row, col = 0, 0
     return row, col
 
 
 def get_ai_move(board, player):
-    """Returns the coordinates of a valid move for player on board."""
     row, col = 0, 0
     return row, col
-    pass
 
 
 def mark(board, player, row, col):
-    """Marks the element at row & col on the board for player."""
-    if (0 <= row < 2) and (0 <= col < 2):
+    if (0 <= row < 2) and (0 <= col) and (col < 2):
         if board[row][col] == 0:
             board[row][col] = player
     return board
 
 
 def has_won(board, player):
-    """Returns True if player has won the game."""
-    return False
+    wincondition = False
+    for i in board:  # sor győzelem
+        win_row = 0
+        for k in i:
+            if k == player:
+                win_row += 1
+            if win_row == 3:
+                wincondition = True
+    column_counter = 0
+    while column_counter < 4:
+        win_column = 0
+        for i in board:
+            if i[column_counter] == player:
+                win_column += 1
+            if win_column == 3:
+                wincondition = True
+            win_column += 1
+    if board[1][1] == player:
+        if board[0][0] == player and board[2][2] == player:
+            wincondition = True
+        if board[2][0] == player and board[0][2] == player:
+            wincondition = True
+    return wincondition
 
 
 def is_full(board):
-    """Returns True if board is full."""
     k = 0
     for i in board:
         k += i.count(0)
@@ -51,7 +66,6 @@ def is_full(board):
 
 
 def print_board(board):
-    """Prints a 3-by-3 board on the screen with borders."""
     play_board = []
     for i in board:
         for k in i:
@@ -78,29 +92,64 @@ def print_board(board):
     return
 
 
-print_board(init_board())
-
-
 def print_result(winner):
-    """Congratulates winner or proclaims tie (if winner equals zero)."""
-    pass
+    # Winner
+    if winner == 2:
+        ascii_banner = pyfiglet.figlet_format("WINNER!")
+        print(Fore.YELLOW + ascii_banner)
+        print(Style.RESET_ALL)
+    elif winner == 1:
+        # Tie
+        ascii_banner = pyfiglet.figlet_format("TIE")
+        print(Fore.RED + ascii_banner)
+        print(Style.RESET_ALL)
+    return
+
+
+def player_select(player):
+    if player == 1:
+        player = 2
+    elif player == 2:
+        player = 1
+    else:
+        print('Player error occured')
+        time.sleep(5)
+    return player
 
 
 def tictactoe_game(mode='HUMAN-HUMAN'):
+    # welcome_screen()
     board = init_board()
     endgame = False
+    winner = 0
+    player = 1  # player one or two
+
     while not endgame:
         # use get_move(), mark(), has_won(), is_full(), and print_board() to create game logic ; AI esetén get_ai_move
         print_board(board)
-        # full, has_won - endgame = True, set winner - itt levizsgálni, majd break
+
+        full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
+        won = has_won(board, player)
+        if full_board:
+            winner = 1
+            endgame = True
+        elif won:
+            winner = 2
+            endgame = True
+
+        player = player_select(player)
         row, col = get_move(board, 1)
         mark(board, 1, row, col)
-    winner = 0
     print_result(winner)  # printboard itt is kell
 
 
+def clear():
+    os.system('clear')
+    return
+
+
 def main_menu():
-    # tictactoe_game('HUMAN-HUMAN')
+    tictactoe_game('HUMAN-HUMAN')
     pass
 
 
