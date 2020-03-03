@@ -1,7 +1,7 @@
 import os
 import time
 # import pygame
-# import pyfiglet
+import pyfiglet
 # import random
 from colorama import Fore, Style  # Back
 
@@ -10,14 +10,16 @@ def init_board():
     board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]  # row the outer, column the inner list(s)
     return board
 
-def taken(board,row,col):
+
+def taken(board, row, col):
     if board[row][col-1] != 0:
         print("This place is already taken, choose another coordinate!")
     else:
         return row, col
 
+
 def get_move(board, player):
-    move = input("Enter coordinates to mark: ")
+    move = input("Player %d enter coordinates to mark: " % (player))
     move = list(move)
     row = move[0]
     col = int(move[1])
@@ -30,17 +32,17 @@ def get_move(board, player):
         print("Enter a valid coordinate!")
     elif row in "aA":
         row = 0
-        taken(board,row,col)
+        taken(board, row, col)
         col = (col - 1)
         return(row, col)
     elif row in "bB":
         row = 1
-        taken(board,row,col)
+        taken(board, row, col)
         col = (col - 1)
         return(row, col)
     elif row in "cC":
         row = 2
-        taken(board,row,col)
+        taken(board, row, col)
         col = (col - 1)
         return(row, col)
 
@@ -51,7 +53,6 @@ def get_ai_move(board, player):
 
 
 def mark(board, player, row, col):
-    print(row, col)
     if (0 <= row) and (row <= 2) and (0 <= col) and (col <= 2):
         if board[row][col] == 0:
             board[row][col] = player
@@ -64,7 +65,7 @@ def has_won(board, player):
         win_row = 0
         for k in i:
             if k == player:
-                win_row += 1
+                print(board)
             if win_row == 3:
                 wincondition = True
     column_counter = 0
@@ -75,7 +76,6 @@ def has_won(board, player):
                 win_column += 1
             if win_column == 3:
                 wincondition = True
-            win_column += 1
             column_counter += 1
     if board[1][1] == player:
         if board[0][0] == player and board[2][2] == player:
@@ -153,26 +153,26 @@ def player_select(player):
 def tictactoe_game(mode='HUMAN-HUMAN'):
     # welcome_screen()
     board = init_board()
-    endgame = False
     winner = 0
     player = 0  # player one(1) or two(2)
     full_board = False
     won = False
-    while not endgame:
+    while True:
         # AI esetén get_ai_move kell majd
         clear()
         print_board(board)
         player = player_select(player)
-        full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
-        won = has_won(board, player)
-        if full_board:
-            winner = 1
-            endgame = True
-        elif won:
-            winner = 2
-            endgame = True
         row, col = get_move(board, player)
         mark(board, player, row, col)
+        full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
+        won = has_won(board, player)
+        print(full_board, won)
+        if full_board:
+            winner = 1
+            break
+        elif won:
+            winner = 2
+            break
     print_board(board)
     print_result(winner, player)
 
