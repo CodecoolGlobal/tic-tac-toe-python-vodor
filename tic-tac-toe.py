@@ -11,35 +11,37 @@ def init_board():
     return board
 
 def taken(board,row,col):
-    if board[row][int(col)-1] != 0:
+    if board[row][col-1] != 0:
         print("This place is already taken, choose another coordinate!")
     else:
-        col = int(col)-1
-    return row,col
+        return row, col
 
 def get_move(board, player):
     move = input("Enter coordinates to mark: ")
     move = list(move)
     row = move[0]
-    col = move[1]
+    col = int(move[1])
     if len(move) > 2:
         print("Enter a valid coordinate!")
         move = list(move)
     elif row not in "abcABC":
         print("Enter a valid coordinate!")
-    elif 0 > int(col) or int(col) > 4:
+    elif 0 > col or col > 4:
         print("Enter a valid coordinate!")
     elif row in "aA":
         row = 0
         taken(board,row,col)
+        col = (col - 1)
         return(row, col)
     elif row in "bB":
         row = 1
         taken(board,row,col)
+        col = (col - 1)
         return(row, col)
     elif row in "cC":
         row = 2
         taken(board,row,col)
+        col = (col - 1)
         return(row, col)
 
 
