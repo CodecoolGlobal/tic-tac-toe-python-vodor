@@ -123,11 +123,11 @@ def print_board(board):
     return
 
 
-def print_result(winner):
+def print_result(winner, player):
     # Winner
     win_char = 'O'
     if player == 1:
-        win_char = 'X' 
+        win_char = 'X'
     if winner == 2:
         ascii_banner = pyfiglet.figlet_format("The Winner Is ", win_char, '!')
         print(Fore.YELLOW + ascii_banner)
@@ -163,6 +163,7 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
     won = False
     while not endgame:
         # AI esetén get_ai_move kell majd
+        clear()
         print_board(board)
         player = player_select(player)
         full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
@@ -176,7 +177,7 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         row, col = get_move(board, player)
         mark(board, player, row, col)
     print_board(board)
-    print_result(winner)
+    print_result(winner, player)
 
 
 def clear():
