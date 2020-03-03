@@ -49,7 +49,8 @@ def get_ai_move(board, player):
 
 
 def mark(board, player, row, col):
-    if (0 <= row) and (row < 2) and (0 <= col) and (col < 2):
+    print(row, col)
+    if (0 <= row) and (row <= 2) and (0 <= col) and (col <= 2):
         if board[row][col] == 0:
             board[row][col] = player
     return board
