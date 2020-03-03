@@ -17,8 +17,7 @@ def get_move(board, player):
         if move == "quit" or move == "QUIT" or move == "Quit":
             clear()
             exit()
-        elif len(move) > 2:
-            clear()
+        elif len(move) > 2 or move.isalpha():
             print_board(board)
             print("Enter a valid coordinate!")
         else:
@@ -26,12 +25,15 @@ def get_move(board, player):
             row = move[0]
             col = int(move[1])
             if row not in "abcABC":
+                print_board(board)
                 print("Enter a valid coordinate!")
             elif 0 > col or col > 4:
+                print_board(board)
                 print("Enter a valid coordinate!")
             elif row in "aA":
                 row = 0
                 if board[row][col-1] != 0:
+                    print_board(board)
                     print("This place is already taken, choose another coordinate!")
                 else:
                     col = (col - 1)
@@ -39,6 +41,7 @@ def get_move(board, player):
             elif row in "bB":
                 row = 1
                 if board[row][col-1] != 0:
+                    print_board(board)
                     print("This place is already taken, choose another coordinate!")
                 else:
                     col = (col - 1)
@@ -46,6 +49,7 @@ def get_move(board, player):
             elif row in "cC":
                 row = 2
                 if board[row][col-1] != 0:
+                    print_board(board)
                     print("This place is already taken, choose another coordinate!")
                 else:
                     col = (col - 1)
@@ -101,6 +105,7 @@ def is_full(board):
 
 
 def print_board(board):
+    clear()
     play_board = []
     for i in board:
         for k in i:
