@@ -49,7 +49,8 @@ def get_ai_move(board, player):
 
 
 def mark(board, player, row, col):
-    if (0 <= row < 2) and (0 <= col) and (col < 2):
+    col = int(col)  # ez valamiért kell
+    if (0 <= row) and (row < 2) and (0 <= col) and (col < 2):
         if board[row][col] == 0:
             board[row][col] = player
     return board
@@ -85,7 +86,6 @@ def is_full(board):
     k = 0
     for i in board:
         k += i.count(0)
-    print(k)
     if k == 0:
         return True
     else:
@@ -150,24 +150,23 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
     endgame = False
     winner = 0
     player = 1  # player one or two
-
+    full_board = False
+    won = False
     while not endgame:
-        get_move(board, player)
         # use get_move(), mark(), has_won(), is_full(), and print_board() to create game logic ; AI esetén get_ai_move
         print_board(board)
-
+        # player = player_select(player)  # mikor váltson, beállítani
         full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
-        won = has_won(board, player)
-        if full_board:
+        # won = has_won(board, player)
+        print(full_board, won)
+        '''if full_board:
             winner = 1
             endgame = True
         elif won:
             winner = 2
-            endgame = True
-
-        player = player_select(player)
-        row, col = get_move(board, 1)
-        mark(board, 1, row, col)
+            endgame = True'''
+        row, col = get_move(board, player)
+        mark(board, player, row, col)
     print_result(winner)  # printboard itt is kell
 
 
@@ -178,7 +177,7 @@ def clear():
 
 def main_menu():
     tictactoe_game('HUMAN-HUMAN')
-    pass
+    return
 
 
 if __name__ == '__main__':
