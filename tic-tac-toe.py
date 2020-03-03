@@ -14,6 +14,7 @@ def init_board():
 def taken(board, row, col):
     if board[row][col-1] != 0:
         print("This place is already taken, choose another coordinate!")
+        time.sleep(1)
     else:
         return row, col
 
