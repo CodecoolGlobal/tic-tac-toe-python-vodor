@@ -122,8 +122,11 @@ def print_board(board):
 
 def print_result(winner):
     # Winner
+    win_char = 'O'
+    if player == 1:
+        win_char = 'X' 
     if winner == 2:
-        ascii_banner = pyfiglet.figlet_format("WINNER!")
+        ascii_banner = pyfiglet.figlet_format("The Winner Is ", win_char, '!')
         print(Fore.YELLOW + ascii_banner)
         print(Style.RESET_ALL)
     elif winner == 1:
