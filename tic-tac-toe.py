@@ -7,7 +7,7 @@ from colorama import Fore, Style  # Back
 
 
 def init_board():
-    board = [[1, 0, 0], [0, 0, 0], [0, 0, 0]]  # row the outer, column the inner list(s)
+    board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]  # row the outer, column the inner list(s)
     return board
 
 def taken(board,row,col):
@@ -49,7 +49,6 @@ def get_ai_move(board, player):
 
 
 def mark(board, player, row, col):
-    col = int(col)  # ez valamiért kell
     if (0 <= row) and (row < 2) and (0 <= col) and (col < 2):
         if board[row][col] == 0:
             board[row][col] = player
@@ -121,7 +120,6 @@ def print_board(board):
 
 
 def print_result(winner, player):
-    # Winner
     win_char = 'O'
     if player == 1:
         win_char = 'X'
@@ -130,7 +128,6 @@ def print_result(winner, player):
         print(Fore.YELLOW + ascii_banner)
         print(Style.RESET_ALL)
     elif winner == 1:
-        # Tie
         ascii_banner = pyfiglet.figlet_format("TIE")
         print(Fore.RED + ascii_banner)
         print(Style.RESET_ALL)
