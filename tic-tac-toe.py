@@ -66,7 +66,7 @@ def has_won(board, player):
             if win_row == 3:
                 wincondition = True
     column_counter = 0
-    while column_counter < 4:
+    while column_counter < 3:
         win_column = 0
         for i in board:
             if i[column_counter] == player:
@@ -74,6 +74,7 @@ def has_won(board, player):
             if win_column == 3:
                 wincondition = True
             win_column += 1
+            column_counter += 1
     if board[1][1] == player:
         if board[0][0] == player and board[2][2] == player:
             wincondition = True
@@ -138,6 +139,8 @@ def player_select(player):
         player = 2
     elif player == 2:
         player = 1
+    elif player == 0:
+        player = 1
     else:
         print('Player error occured')
         time.sleep(5)
@@ -149,25 +152,25 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
     board = init_board()
     endgame = False
     winner = 0
-    player = 1  # player one or two
+    player = 0  # player one(1) or two(2)
     full_board = False
     won = False
     while not endgame:
-        # use get_move(), mark(), has_won(), is_full(), and print_board() to create game logic ; AI esetén get_ai_move
+        # AI esetén get_ai_move kell majd
         print_board(board)
-        # player = player_select(player)  # mikor váltson, beállítani
+        player = player_select(player)
         full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
-        # won = has_won(board, player)
-        print(full_board, won)
-        '''if full_board:
+        won = has_won(board, player)
+        if full_board:
             winner = 1
             endgame = True
         elif won:
             winner = 2
-            endgame = True'''
+            endgame = True
         row, col = get_move(board, player)
         mark(board, player, row, col)
-    print_result(winner)  # printboard itt is kell
+    print_board(board)
+    print_result(winner)
 
 
 def clear():
