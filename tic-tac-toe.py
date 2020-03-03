@@ -11,14 +11,6 @@ def init_board():
     return board
 
 
-def taken(board, row, col):
-    if board[row][col-1] != 0:
-        print("This place is already taken, choose another coordinate!")
-        time.sleep(1)
-    else:
-        return row, col
-
-
 def get_move(board, player):
     while True:
         move = input("Enter coordinates to mark or 'quit' to leave the game: ")
@@ -39,19 +31,25 @@ def get_move(board, player):
                 print("Enter a valid coordinate!")
             elif row in "aA":
                 row = 0
-                taken(board,row,col)
-                col = (col - 1)
-                return(row, col)
+                if board[row][col-1] != 0:
+                    print("This place is already taken, choose another coordinate!")
+                else:
+                    col = (col - 1)
+                    return row, col
             elif row in "bB":
                 row = 1
-                taken(board,row,col)
-                col = (col - 1)
-                return(row, col)
+                if board[row][col-1] != 0:
+                    print("This place is already taken, choose another coordinate!")
+                else:
+                    col = (col - 1)
+                    return row, col
             elif row in "cC":
                 row = 2
-                taken(board,row,col)
-                col = (col - 1)
-                return(row, col)
+                if board[row][col-1] != 0:
+                    print("This place is already taken, choose another coordinate!")
+                else:
+                    col = (col - 1)
+                    return row, col
 
 
 def get_ai_move(board, player):
@@ -175,12 +173,13 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         mark(board, player, row, col)
         full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
         won = has_won(board, player)
-        if full_board:
-            winner = 1
-            break
-        elif won:
+        if won:
             winner = 2
             break
+        elif full_board:
+            winner = 1
+            break
+    clear()
     print_board(board)
     print_result(winner, player)
 
