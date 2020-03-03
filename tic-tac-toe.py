@@ -1,7 +1,7 @@
 import os
 import time
 # import pygame
-# import pyfiglet
+import pyfiglet
 # import random
 from colorama import Fore, Style  # Back
 
@@ -17,32 +17,38 @@ def taken(board,row,col):
         return row, col
 
 def get_move(board, player):
-    move = input("Enter coordinates to mark: ")
-    move = list(move)
-    row = move[0]
-    col = int(move[1])
-    if len(move) > 2:
-        print("Enter a valid coordinate!")
-        move = list(move)
-    elif row not in "abcABC":
-        print("Enter a valid coordinate!")
-    elif 0 > col or col > 4:
-        print("Enter a valid coordinate!")
-    elif row in "aA":
-        row = 0
-        taken(board,row,col)
-        col = (col - 1)
-        return(row, col)
-    elif row in "bB":
-        row = 1
-        taken(board,row,col)
-        col = (col - 1)
-        return(row, col)
-    elif row in "cC":
-        row = 2
-        taken(board,row,col)
-        col = (col - 1)
-        return(row, col)
+    while True:
+        move = input("Enter coordinates to mark or 'quit' to leave the game: ")
+        if move == "quit" or move == "QUIT" or move == "Quit":
+            clear()
+            exit()
+        elif len(move) > 2:
+            clear()
+            print_board(board)
+            print("Enter a valid coordinate!")
+        else:
+            move = list(move)
+            row = move[0]
+            col = int(move[1])
+            if row not in "abcABC":
+                print("Enter a valid coordinate!")
+            elif 0 > col or col > 4:
+                print("Enter a valid coordinate!")
+            elif row in "aA":
+                row = 0
+                taken(board,row,col)
+                col = (col - 1)
+                return(row, col)
+            elif row in "bB":
+                row = 1
+                taken(board,row,col)
+                col = (col - 1)
+                return(row, col)
+            elif row in "cC":
+                row = 2
+                taken(board,row,col)
+                col = (col - 1)
+                return(row, col)
 
 
 def get_ai_move(board, player):
@@ -51,7 +57,7 @@ def get_ai_move(board, player):
 
 
 def mark(board, player, row, col):
-    if (0 <= row) and (row < 2) and (0 <= col) and (col < 2):
+    if (0 <= row) and (row <= 2) and (0 <= col) and (col <= 2):
         if board[row][col] == 0:
             board[row][col] = player
     return board
