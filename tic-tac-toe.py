@@ -7,9 +7,15 @@ from colorama import Fore, Style  # Back
 
 
 def init_board():
-    board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]  # row the outer, column the inner list(s)
+    board = [[1, 0, 0], [0, 0, 0], [0, 0, 0]]  # row the outer, column the inner list(s)
     return board
 
+def taken(board,row,col):
+    if board[row][int(col)-1] != 0:
+        print("This place is already taken, choose another coordinate!")
+    else:
+        col = int(col)-1
+    return row,col
 
 def get_move(board, player):
     move = input("Enter coordinates to mark: ")
@@ -25,25 +31,16 @@ def get_move(board, player):
         print("Enter a valid coordinate!")
     elif row in "aA":
         row = 0
-        if board[row][int(col)-1] != 0:
-            print("This place is already taken, choose another coordinate!")
-        else:
-            col = int(col)-1
-            return(row, col)
+        taken(board,row,col)
+        return(row, col)
     elif row in "bB":
         row = 1
-        if board[row][int(col)-1] != 0:
-            print("This place is already taken, choose another coordinate!")
-        else:
-            col = int(col)-1
-            return(row, col)
+        taken(board,row,col)
+        return(row, col)
     elif row in "cC":
         row = 2
-        if board[row][int(col)-1] != 0:
-            print("This place is already taken, choose another coordinate!")
-        else:
-            col = int(col)-1
-            return(row, col)
+        taken(board,row,col)
+        return(row, col)
 
 
 def get_ai_move(board, player):
