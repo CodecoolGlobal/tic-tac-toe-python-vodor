@@ -12,11 +12,6 @@ def init_board():
 
 
 def get_move(board, player):
-<<<<<<< HEAD
-    row, col = 0, 0
-    return row, col
-
-=======
     move = input("Enter coordinates to mark: ")
     move = list(move)
     row = move[0]
@@ -26,27 +21,27 @@ def get_move(board, player):
         move = list(move)
     elif row not in "abcABC":
         print("Enter a valid coordinate!")
-    elif 0 > int(col) or int(col) > 4: 
+    elif 0 > int(col) or int(col) > 4:
         print("Enter a valid coordinate!")
     elif row in "aA":
         row = 0
         if board[row][int(col)-1] != 0:
             print("This place is already taken, choose another coordinate!")
         else:
-            return(row,col)
+            return(row, col)
     elif row in "bB":
         row = 1
         if board[row][int(col)-1] != 0:
             print("This place is already taken, choose another coordinate!")
         else:
-            return(row,col)
+            return(row, col)
     elif row in "cC":
         row = 2
         if board[row][int(col)-1] != 0:
             print("This place is already taken, choose another coordinate!")
         else:
-            return(row,col)
->>>>>>> 3e4304b66d5d7a4f5bcf29f8b527baa2e2e9a1d3
+            return(row, col)
+
 
 def get_ai_move(board, player):
     row, col = 0, 0
@@ -54,18 +49,13 @@ def get_ai_move(board, player):
 
 
 def mark(board, player, row, col):
-<<<<<<< HEAD
     if (0 <= row < 2) and (0 <= col) and (col < 2):
-=======
-    if (0 <= row < 2) and (0 <= col < 2):
->>>>>>> 3e4304b66d5d7a4f5bcf29f8b527baa2e2e9a1d3
         if board[row][col] == 0:
             board[row][col] = player
     return board
 
 
 def has_won(board, player):
-<<<<<<< HEAD
     wincondition = False
     for i in board:  # sor győzelem
         win_row = 0
@@ -89,9 +79,6 @@ def has_won(board, player):
         if board[2][0] == player and board[0][2] == player:
             wincondition = True
     return wincondition
-=======
-    return False
->>>>>>> 3e4304b66d5d7a4f5bcf29f8b527baa2e2e9a1d3
 
 
 def is_full(board):
@@ -132,7 +119,6 @@ def print_board(board):
     return
 
 
-<<<<<<< HEAD
 def print_result(winner):
     # Winner
     if winner == 2:
@@ -156,13 +142,6 @@ def player_select(player):
         print('Player error occured')
         time.sleep(5)
     return player
-=======
-# print_board(init_board())
-
-
-def print_result(winner):
-    pass
->>>>>>> 3e4304b66d5d7a4f5bcf29f8b527baa2e2e9a1d3
 
 
 def tictactoe_game(mode='HUMAN-HUMAN'):
@@ -173,9 +152,8 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
     player = 1  # player one or two
 
     while not endgame:
-        get_move(board,player)
+        get_move(board, player)
         # use get_move(), mark(), has_won(), is_full(), and print_board() to create game logic ; AI esetén get_ai_move
-<<<<<<< HEAD
         print_board(board)
 
         full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
@@ -190,13 +168,6 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         player = player_select(player)
         row, col = get_move(board, 1)
         mark(board, 1, row, col)
-=======
-        # print_board(board)
-        # # full, has_won - endgame = True, set winner - itt levizsgálni, majd break
-        # row, col = get_move(board, 1)
-        # mark(board, 1, row, col)
-    winner = 0
->>>>>>> 3e4304b66d5d7a4f5bcf29f8b527baa2e2e9a1d3
     print_result(winner)  # printboard itt is kell
 
 
