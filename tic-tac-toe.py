@@ -12,6 +12,8 @@ def init_board():
 
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
+    something
+    something
     row, col = 0, 0
     return row, col
 
@@ -20,6 +22,7 @@ def get_ai_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
     row, col = 0, 0
     return row, col
+    pass
 
 
 def mark(board, player, row, col):
