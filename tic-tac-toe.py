@@ -1,8 +1,8 @@
 import os
 import time
 # import pygame
-import pyfiglet
-# import random
+# import pyfiglet
+import random
 from colorama import Fore, Style  # Back
 
 
@@ -60,18 +60,6 @@ def get_move(board, player):
                         return row, col
 
 
-def get_ai_move(board, player):
-    row, col = 0, 0
-    return row, col
-
-
-def mark(board, player, row, col):
-    if (0 <= row) and (row <= 2) and (0 <= col) and (col <= 2):
-        if board[row][col] == 0:
-            board[row][col] = player
-    return board
-
-
 def has_won(board, player):
     wincondition = False
     for i in board:  # sor győzelem
@@ -96,6 +84,35 @@ def has_won(board, player):
         if board[2][0] == player and board[0][2] == player:
             wincondition = True
     return wincondition
+
+
+def get_ai_move(board, player):
+    ai_board = []
+    ai_board = board
+    row = 0
+    for i in ai_board:  # tud-e győzni
+        col = 0
+        for z in i:
+            if z == 0:
+                i[col] = player
+                if has_won(ai_board, player):
+                    return row, col
+                else:
+                    i[col] = 0
+            col += 1
+        row += 1
+    while True:
+        row = random.randint(0, 2)
+        col = random.randint(0, 2)
+        if ai_board[row][col] == 0:
+            return row, col
+
+
+def mark(board, player, row, col):
+    if (0 <= row) and (row <= 2) and (0 <= col) and (col <= 2):
+        if board[row][col] == 0:
+            board[row][col] = player
+    return board
 
 
 def is_full(board):
@@ -142,14 +159,15 @@ def print_result(winner, player):
         win_char = 'X'
     if winner == 2:
         print('win')
-        '''ascii_banner = pyfiglet.figlet_format("The Winner Is ", win_char, '!')
+        '''ascii_banner = pyfiglet.figlet_format('The Winner Is ', win_char)
         print(Fore.YELLOW + ascii_banner)
         print(Style.RESET_ALL)'''
     elif winner == 1:
-        print("tie")
-        """ascii_banner = pyfiglet.figlet_format("TIE")
+        print('tie')
+        '''
+        ascii_banner = pyfiglet.figlet_format("TIE")
         print(Fore.RED + ascii_banner)
-        print(Style.RESET_ALL)"""
+        print(Style.RESET_ALL)'''
     return
 
 
@@ -167,18 +185,28 @@ def player_select(player):
 
 
 def tictactoe_game(mode='HUMAN-HUMAN'):
-    # welcome_screen()
     board = init_board()
     winner = 0
     player = 0  # player one(1) or two(2)
     full_board = False
     won = False
+    if mode == 'HUMAN-HUMAN':
+        player2 = 'human'
+    elif mode == 'HUMAN-AI':
+        player2 = 'ai'
     while True:
-        # AI esetén get_ai_move kell majd
         clear()
         print_board(board)
         player = player_select(player)
-        row, col = get_move(board, player)
+
+        if (player == 2) and (player2 == 'human'):
+            row, col = get_move(board, player)
+        elif (player == 2) and (player2 == 'ai'):
+            time.sleep(1)
+            row, col = get_ai_move(board, player)
+        elif player == 1:
+            row, col = get_move(board, player)
+
         mark(board, player, row, col)
         full_board = is_full(board)  # 0 - megy a játék, 1 - tie, 2 - győzelem
         won = has_won(board, player)
@@ -191,6 +219,7 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
     clear()
     print_board(board)
     print_result(winner, player)
+    exit()
 
 
 def clear():
@@ -199,7 +228,16 @@ def clear():
 
 
 def main_menu():
-    tictactoe_game('HUMAN-HUMAN')
+    # welcome_screen()
+    while True:
+        clear()
+        begin = input("Szia!\nMit szeretnél játszani?\n1. Human vs Human\n2. Human vs A.I.\n")
+        if int(begin) == 1:
+            clear()
+            tictactoe_game('HUMAN-HUMAN')
+        elif int(begin) == 2:
+            clear()
+            tictactoe_game('HUMAN-AI')
     return
 
 
