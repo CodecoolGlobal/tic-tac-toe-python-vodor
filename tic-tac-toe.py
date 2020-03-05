@@ -1,7 +1,7 @@
 import os
 import time
 import copy
-# import pygame
+import pygame
 import pyfiglet
 import random
 from pyfiglet import Figlet
@@ -238,6 +238,17 @@ def print_board(board):
     print('       |   |')
     return
 
+def tie_music():
+    pygame.mixer.init()
+    pygame.mixer.music.load("tie.mp3")
+    pygame.mixer.music.play(11)
+    time.sleep(11)
+
+def win_music():
+    pygame.mixer.init()
+    pygame.mixer.music.load("win.mp3")
+    pygame.mixer.music.play(9)
+    time.sleep(9)
 
 def print_result(winner, player):
     win_char = 'O'
@@ -249,16 +260,19 @@ def print_result(winner, player):
             ascii_banner = pyfiglet.figlet_format('The Winner Is :  O')
             print(Fore.YELLOW + ascii_banner)
             print(Style.RESET_ALL)
+            win_music()
         else:
             print('\n\n')
             ascii_banner = pyfiglet.figlet_format('The Winner Is :  X')
             print(Fore.YELLOW + ascii_banner)
             print(Style.RESET_ALL)
+            win_music()
     elif winner == 1:
         print('\n\n')
         ascii_banner = pyfiglet.figlet_format("It's a Tie!")
         print(Fore.LIGHTRED_EX + ascii_banner)
         print(Style.RESET_ALL)
+        tie_music()
     return
 
 
@@ -324,6 +338,15 @@ def clear():
     os.system('clear')
     return
 
+def bye_music():
+    pygame.mixer.init()
+    pygame.mixer.music.load("bye.mp3")
+    pygame.mixer.music.play(8)
+    ascii_banner = pyfiglet.figlet_format("Bye-bye!")
+    print(Fore.RED+ ascii_banner)
+    print(Style.RESET_ALL)
+    time.sleep(8)
+    return True
 
 def welcome_screen():
     clear()
@@ -355,7 +378,10 @@ def main_menu():
             elif begin == '4':
                 tictactoe_game('AI-AI')
             elif begin == '5':
-                exit()
+                clear()
+                mus = bye_music()
+                if mus is True:
+                    exit()
     except KeyboardInterrupt:
         clear()
         print('Good bye!')
