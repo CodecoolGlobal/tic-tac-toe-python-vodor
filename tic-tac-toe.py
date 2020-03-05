@@ -4,6 +4,7 @@ import copy
 # import pygame
 import pyfiglet
 import random
+from pyfiglet import Figlet
 from colorama import Fore, Style  # Back
 
 
@@ -244,16 +245,19 @@ def print_result(winner, player):
         win_char = 'X'
     if winner == 2:
         if win_char == 'O':
+            print('\n\n')
             ascii_banner = pyfiglet.figlet_format('The Winner Is :  O')
             print(Fore.YELLOW + ascii_banner)
             print(Style.RESET_ALL)
         else:
+            print('\n\n')
             ascii_banner = pyfiglet.figlet_format('The Winner Is :  X')
             print(Fore.YELLOW + ascii_banner)
             print(Style.RESET_ALL)
     elif winner == 1:
+        print('\n\n')
         ascii_banner = pyfiglet.figlet_format("It's a Tie!")
-        print(Fore.RED + ascii_banner)
+        print(Fore.LIGHTRED_EX + ascii_banner)
         print(Style.RESET_ALL)
     return
 
@@ -321,26 +325,41 @@ def clear():
     return
 
 
+def welcome_screen():
+    clear()
+    fig_font = Figlet(font='slant', justify='center', width=180)
+    print('\n\n\n\n\n\n\n\n\n\n\n\n')
+    print(fig_font.renderText('Tic-Tac-Toe'))
+    time.sleep(5)
+    clear()
+    return
+
+
 def main_menu():
-    # welcome_screen()
-    while True:
+    welcome_screen()
+    try:
+        while True:
+            clear()
+            print('Hi!\n\nDo you want to play?\n')
+            print('1. Human vs Human\n2. Human vs A.I.\n3. A.I. vs Human\n4. A.I. vs A.I.\n5. Exit\n')
+            begin = input('Choose(1-5):')
+            if begin == '1':
+                clear()
+                tictactoe_game('HUMAN-HUMAN')
+            elif begin == '2':
+                clear()
+                tictactoe_game('HUMAN-AI')
+            elif begin == '3':
+                clear()
+                tictactoe_game('AI-HUMAN')
+            elif begin == '4':
+                tictactoe_game('AI-AI')
+            elif begin == '5':
+                exit()
+    except KeyboardInterrupt:
         clear()
-        print('Hi!\n\nDo you want to play?\n')
-        print('1. Human vs Human\n2. Human vs A.I.\n3. A.I. vs Human\n4. A.I. vs A.I.\n5. Exit\n')
-        begin = input('Choose(1-5):')
-        if begin == '1':
-            clear()
-            tictactoe_game('HUMAN-HUMAN')
-        elif begin == '2':
-            clear()
-            tictactoe_game('HUMAN-AI')
-        elif begin == '3':
-            clear()
-            tictactoe_game('AI-HUMAN')
-        elif begin == '4':
-            tictactoe_game('AI-AI')
-        elif begin == '5':
-            exit()
+        print('Good bye!')
+        exit()
     return
 
 
