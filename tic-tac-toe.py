@@ -14,9 +14,13 @@ def init_board():
 
 
 def get_move(board, player):
+    if player == 1:
+        player_name = 'X'
+    elif player == 2:
+        player_name = 'O'
     try:
         while True:
-            move = input("Enter coordinates to mark or 'quit' to leave the game: ")
+            move = input("\nDear " + player_name + ", enter coordinates to mark or 'quit' to leave the game: ")
             if move == "quit" or move == "QUIT" or move == "Quit":
                 clear()
                 exit()
@@ -63,7 +67,10 @@ def get_move(board, player):
                             return row, col
     except KeyboardInterrupt:
         clear()
-        print('Good bye!')
+        ascii_banner = pyfiglet.figlet_format("Bye-bye!")
+        print(Fore.RED + ascii_banner)
+        print(Style.RESET_ALL)
+        time.sleep(1)
         exit()
 
 
@@ -238,17 +245,20 @@ def print_board(board):
     print('       |   |')
     return
 
+
 def tie_music():
     pygame.mixer.init()
     pygame.mixer.music.load("tie.mp3")
     pygame.mixer.music.play(11)
     time.sleep(11)
 
+
 def win_music():
     pygame.mixer.init()
     pygame.mixer.music.load("win.mp3")
     pygame.mixer.music.play(9)
     time.sleep(9)
+
 
 def print_result(winner, player):
     win_char = 'O'
@@ -273,6 +283,14 @@ def print_result(winner, player):
         print(Fore.LIGHTRED_EX + ascii_banner)
         print(Style.RESET_ALL)
         tie_music()
+    while True:
+        retry = input('Try again? (Y/N)')
+        if retry in 'nN':
+            exit()
+        elif retry in 'yY':
+            main_menu()
+        else:
+            clear()
     return
 
 
@@ -338,22 +356,24 @@ def clear():
     os.system('clear')
     return
 
+
 def bye_music():
     pygame.mixer.init()
     pygame.mixer.music.load("bye.mp3")
     pygame.mixer.music.play(8)
     ascii_banner = pyfiglet.figlet_format("Bye-bye!")
-    print(Fore.RED+ ascii_banner)
+    print(Fore.RED + ascii_banner)
     print(Style.RESET_ALL)
     time.sleep(8)
     return True
+
 
 def welcome_screen():
     clear()
     fig_font = Figlet(font='slant', justify='center', width=180)
     print('\n\n\n\n\n\n\n\n\n\n\n\n')
     print(fig_font.renderText('Tic-Tac-Toe'))
-    time.sleep(5)
+    time.sleep(4)
     clear()
     return
 
@@ -384,7 +404,10 @@ def main_menu():
                     exit()
     except KeyboardInterrupt:
         clear()
-        print('Good bye!')
+        ascii_banner = pyfiglet.figlet_format("Bye-bye!")
+        print(Fore.RED + ascii_banner)
+        print(Style.RESET_ALL)
+        time.sleep(1)
         exit()
     return
 
