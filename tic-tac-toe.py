@@ -284,7 +284,8 @@ def print_result(winner, player):
         print(Style.RESET_ALL)
         tie_music()
     while True:
-        retry = input('Try again? (Y/N)')
+        pygame.mixer.music.stop()
+        retry = input('Try again? Type in "Y" to continue or "N" to leave the game: ')
         if retry in 'nN':
             exit()
         elif retry in 'yY':
@@ -385,7 +386,7 @@ def main_menu():
             clear()
             print('Hi!\n\nDo you want to play?\n')
             print('1. Human vs Human\n2. Human vs A.I.\n3. A.I. vs Human\n4. A.I. vs A.I.\n5. Exit\n')
-            begin = input('Choose(1-5):')
+            begin = input('Choose(1-5): ')
             if begin == '1':
                 clear()
                 tictactoe_game('HUMAN-HUMAN')
