@@ -325,9 +325,9 @@ def main_menu():
     # welcome_screen()
     while True:
         clear()
-        print('Szia!\n\nMit szeretnél játszani?\n')
+        print('Hi!\n\nDo you want to play?\n')
         print('1. Human vs Human\n2. Human vs A.I.\n3. A.I. vs Human\n4. A.I. vs A.I.\n5. Exit\n')
-        begin = input('Válassz(1-4):')
+        begin = input('Choose(1-5):')
         if begin == '1':
             clear()
             tictactoe_game('HUMAN-HUMAN')
